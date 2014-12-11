@@ -15,9 +15,9 @@ node_modules/
 
 npm-debug.log
 public
-www/bower_components
-www/js/libs/vendor
-www/css/libs/vendor
-dist/
+src/bower_components
+src/js/libs/vendor
+src/css/libs/vendor
+www/
 platforms/
 plugins/

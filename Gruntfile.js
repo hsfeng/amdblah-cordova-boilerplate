@@ -10,8 +10,8 @@
 
 		// configurable paths
 		var yeomanConfig = {
-			app: 'www',
-			dist: 'dist'
+			app: 'src',
+			dist: 'www'
 		};
 
 		try {
@@ -41,17 +41,19 @@
 			},
 			watchfiles: {
 				all: [
-					'www/{,*/}*.html',
-					'www/js/{,*/,*/}*.js',
-					'www/css/{,*/}*.css',
-					'www/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+					'<%= yeoman.app %>/{,*/}*.html',
+					'<%= yeoman.app %>/js/{,*/,*/}*.js',
+					'<%= yeoman.app %>/css/{,*/}*.css',
+					'<%= yeoman.app %>/bundle/{,*/}*.json',
+					'<%= yeoman.app %>/templates/{,*/}*.html',
+					'<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
 				]
 			},
 			watch: {
 				scripts: {
 					files: [
-						'www/js/**/*.js',
-						'www/css/**/*.css'
+						'<%= yeoman.app %>/js/**/*.js',
+						'<%= yeoman.app %>/css/**/*.css'
 					],
 					tasks: ['jshint']
 				},
@@ -100,6 +102,7 @@
 						'js/views/{,*/}*', '!js/views/*.js',
 						'js/ctls',
 						'js/models',
+						'templates',
 						'css/**/*.less'
 					]
 				},
@@ -238,7 +241,15 @@
 				build: {
 					files: '<%=  yeoman.dist %>/**/*.json'
 				}
-			}
+			},
+			copy: {
+				dev: {
+					expand: true,
+					cwd: '<%= yeoman.app %>',
+					src: '**',
+					dest: '<%= yeoman.dist %>/',
+				},
+			},
 		});
 
 		// Cordova Tasks
@@ -333,6 +344,14 @@
 		]);
 
 		grunt.registerTask('cordova-buildrun', [
+			'clean:dist',
+			'copy:dev',
+			'cordova-build',
+			'cordova-run'
+		]);
+
+		grunt.registerTask('cordova-releaserun', [
+			'default',
 			'cordova-build',
 			'cordova-run'
 		]);
@@ -353,6 +372,9 @@
 		]);
 
 		grunt.registerTask('device', ['cordova-buildrun']);
+
+		grunt.registerTask('release', ['cordova-releaserun']);
+
 		grunt.registerTask('live-device', ['cordova-buildrun', 'watch:livedevice']);
 
 		grunt.registerTask('bower-install', ['clean:bower', 'bower:install']);
