@@ -75,7 +75,7 @@
 			},
 			shell: {
 				iossimstart: {
-					command: 'ios-sim launch platforms/ios/build/Plazine.app --exit' + (
+					command: 'ios-sim launch platforms/ios/build/Amdblah.app --exit' + (
 						device.family !== 'default' ? ' --family ' + device.family : ''),
 					options: {
 						stdout: true
