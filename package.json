@@ -4,7 +4,7 @@
 	"description": "A boilerplate template for new Cordova projects with Amdblah.",
 	"keywords": [
 		"Handlebars",
-		"Cordova"
+		"Cordova",
 		"Requirejs",
 		"Backbone.js"
 	],
